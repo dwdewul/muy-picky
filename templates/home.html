@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ block.super }} | Home
+{% endblock title %}
+
+{% block content %}
+<h2>EXTENDED</h2>
+<a href="/">Base</a>
+{{ block.super }}
+{% endblock content %}
