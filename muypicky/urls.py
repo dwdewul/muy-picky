@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from profiles.views import ProfileFollowToggle
 from django.contrib.auth.views import (LoginView, LogoutView, 
                                     PasswordResetView, PasswordResetConfirmView,
                                     PasswordResetCompleteView, PasswordResetDoneView,
@@ -23,6 +24,9 @@ from django.contrib.auth.views import (LoginView, LogoutView,
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^restaurants/', include('restaurants.urls', namespace="restaurants")),
+    url(r'^items/', include('menus.urls', namespace="menus")),
+    url(r'^u/', include('profiles.urls', namespace="profiles")),
+    url(r'^follow/$', ProfileFollowToggle.as_view(), name='follow'),
     url(r'^login/$', LoginView.as_view(), name="login"),
     url(r'^logout/$', LogoutView.as_view(), name="logout"),
     # May want to implement custom templates, as this routes to the Django admin page

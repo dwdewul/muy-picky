@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>{{ user.username }}</p>
+  {% if user.profile in request.user.is_following.all %}
+    Is following
+  {% endif %}
+  <p>{% include 'profiles/snippets/follow_form.html' with username=user.username %}</p>
+  <form class="form" method="GET">
+    <input type="text" placeholder="Search..." name="q" value={{ request.GET.q }}>
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+  {% if locations %}
+  <ul>
+    {% for raunt in user.restaurant_set.all %}
+      <li>{{raunt.title}}</li>
+      <ul>
+          {% for item in raunt.item_set.all %}
+              <li>{{item.name}}</li>
+              <ul>
+                  {% for ing in item.get_contents %}
+                      <li>{{ing}}</li>
+                  {% endfor %}
+              </ul>
+          {% endfor %}
+      </ul>
+    {% endfor %}
+</ul>
+  {% endif %}
+ 
+{% endblock content %}
